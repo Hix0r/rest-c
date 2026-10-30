@@ -1,0 +1,108 @@
+{
+  "status": "success",
+  "total_tests": 20,
+  "passed": 20,
+  "failed": 0,
+  "test_cases": [
+    {
+      "tc_id": 1,
+      "name": "DB handle active",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 2,
+      "name": "Users table accessible",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 3,
+      "name": "Password verify accepts valid",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 4,
+      "name": "Password verify rejects invalid",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 5,
+      "name": "Token unique, prefix TK",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 6,
+      "name": "Config: TTL > 0, history limit > 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 7,
+      "name": "V5 sample: churn_rate = 5.0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 8,
+      "name": "V5 sample: leakage = 7500.0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 9,
+      "name": "V5 sample: recovery budget = 3750.0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 10,
+      "name": "V5 valid input accepted",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 11,
+      "name": "V5 boundary: active_users_start = 10",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 12,
+      "name": "V5 boundary: churned = active - 1",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 13,
+      "name": "V5 boundary: churned = 0 -> zeros",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 14,
+      "name": "V5 boundary: arpu = 0.01 accepted",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 15,
+      "name": "V5 invalid: active_users_start = 9",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 16,
+      "name": "V5 invalid: churned = active",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 17,
+      "name": "V5 invalid: churned < 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 18,
+      "name": "V5 invalid: arpu = 0 / winback < 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 19,
+      "name": "V5 incomplete: empty body",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 20,
+      "name": "V5 incomplete: missing arpu",
+      "status": "PASSED"
+    }
+  ]
+}

@@ -19,6 +19,7 @@
 #include "../json.hpp"
 #include "../crypto.hpp"
 #include "auth.hpp"
+#include "../modules/individual/variant_mine.hpp"
 
 namespace Public {
     using namespace std;
@@ -68,10 +69,8 @@ namespace Public {
         // ─── 3. Логи (только admin/owner) ───────────────────────────────────
         svr.Get("/api/v1.1/admin/stats", [](const Request& req, Response& res) {
             string role, name;
-            if (!Auth::auth(req, role, name) || !Auth::admin(role)) {
-                res.status = 403;
-                return;
-            }
+            if (!Auth::auth(req, role, name)) { res.status = 401; return; }
+            if (!Auth::admin(role))           { res.status = 403; return; }
 
             JArr arr;
             for (auto& r : db_all(
@@ -93,38 +92,43 @@ namespace Public {
             if (!Auth::auth(req, role, name)) { res.status = 401; return; }
             if (!Auth::admin(role))           { res.status = 403; return; }
 
-            vector<double> v = {15, 25, 35};
-            double mean = accumulate(v.begin(), v.end(), 0.0) / v.size();
-            sort(v.begin(), v.end());
-            map<double,int> freq;
-            for (double x : {7.0, 7.0, 14.0}) freq[x]++;
-            double mode = 0; int maxf = 0;
-            for (auto& [k, c] : freq) if (c > maxf) { maxf = c; mode = k; }
+            // Хелперы для проверок модуля варианта 5.
+            auto body = [](const string& a, const string& c, const string& r, const string& w) {
+                return "{\"active_users_start\":" + a + ",\"churned_users\":" + c +
+                       ",\"arpu\":" + r + ",\"winback_cost_per_user\":" + w + "}";
+            };
+            auto err = [&](const string& b) { return TaskVariant::validate(TaskVariant::parse(b)); };
+            auto ok  = [&](const string& b) { return err(b).empty(); };
+            auto ref = TaskVariant::calculate(TaskVariant::parse(body("5000", "250", "30.0", "15.0")));
             string h = hash_password("test");
 
             vector<pair<string,bool>> tests = {
-                {"DB handle active",             db != nullptr},
-                {"Users table accessible",       !db_row("SELECT 1 FROM users LIMIT 1;").empty()},
-                {"Logs table accessible",        !db_row("SELECT 1 FROM logs LIMIT 1;").empty()},
-                {"Log write works",              (write_log("INFO","test"), true)},
-                {"Hash not empty",               !h.empty()},
-                {"Verify accepts valid",         verify_password("test", h)},
-                {"Verify rejects invalid",       !verify_password("wrong", h)},
-                {"Hash uses unique salt",        hash_password("x") != hash_password("x")},
-                {"Token unique",                 make_token() != make_token()},
-                {"Token prefix TK",              make_token().rfind("TK",0) == 0},
-                {"Math: count",                  v.size() == 3},
-                {"Math: mean",                   fabs(mean - 25.0) < 1e-9},
-                {"Math: median",                 fabs(v[1] - 25.0) < 1e-9},
-                {"Math: mode",                   maxf > 1 && mode == 7.0},
-                {"Math: variance defined",       v.size() > 0},
-                {"Math: stddev",                 fabs(sqrt(144.0) - 12.0) < 1e-9},
-                {"Auth: role admin/owner",       Auth::admin(role)},
-                {"Auth: user non-empty",         !name.empty()},
-                {"Config: TTL > 0",              TOKEN_TTL_SECONDS > 0},
-                {"Config: MAX_HISTORY > 0",      MAX_HISTORY_LIMIT > 0},
+                // --- система (6) ---
+                {"DB handle active",                     db != nullptr},
+                {"Users table accessible",               !db_row("SELECT 1 FROM users LIMIT 1;").empty()},
+                {"Password verify accepts valid",        verify_password("test", h)},
+                {"Password verify rejects invalid",      !verify_password("wrong", h)},
+                {"Token unique, prefix TK",              make_token() != make_token() && make_token().rfind("TK",0) == 0},
+                {"Config: TTL > 0, history limit > 0",   TOKEN_TTL_SECONDS > 0 && MAX_HISTORY_LIMIT > 0},
+                // --- вариант 5: корректные данные (4) ---
+                {"V5 sample: churn_rate = 5.0",          fabs(ref.churn_rate_percentage - 5.0) < 1e-9},
+                {"V5 sample: leakage = 7500.0",          fabs(ref.monthly_revenue_leakage - 7500.0) < 1e-9},
+                {"V5 sample: recovery budget = 3750.0",  fabs(ref.total_recovery_budget - 3750.0) < 1e-9},
+                {"V5 valid input accepted",              ok(body("5000", "250", "30.0", "15.0"))},
+                // --- граничные значения (4) ---
+                {"V5 boundary: active_users_start = 10", ok(body("10", "0", "1", "1"))},
+                {"V5 boundary: churned = active - 1",    ok(body("10", "9", "1", "1"))},
+                {"V5 boundary: churned = 0 -> zeros",    TaskVariant::calculate(TaskVariant::parse(body("10", "0", "5", "5"))).total_recovery_budget == 0.0},
+                {"V5 boundary: arpu = 0.01 accepted",    ok(body("10", "1", "0.01", "0.01"))},
+                // --- неверные данные (4) ---
+                {"V5 invalid: active_users_start = 9",   !err(body("9", "1", "1", "1")).empty()},
+                {"V5 invalid: churned = active",         !err(body("100", "100", "1", "1")).empty()},
+                {"V5 invalid: churned < 0",              !err(body("100", "-1", "1", "1")).empty()},
+                {"V5 invalid: arpu = 0 / winback < 0",   !err(body("100", "5", "0", "1")).empty() && !err(body("100", "5", "1", "-3")).empty()},
+                // --- неполные данные (2) ---
+                {"V5 incomplete: empty body",            !err("").empty()},
+                {"V5 incomplete: missing arpu",          err("{\"active_users_start\":100,\"churned_users\":5,\"winback_cost_per_user\":2}") == "arpu is required"},
             };
-
             int passed = 0;
             JArr cases;
             for (size_t i = 0; i < tests.size(); ++i) {

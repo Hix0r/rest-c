@@ -1,0 +1,108 @@
+{
+  "status": "success",
+  "total_tests": 20,
+  "passed": 20,
+  "failed": 0,
+  "test_cases": [
+    {
+      "tc_id": 1,
+      "name": "Control example: churn=5, leakage=7500, recovery=3750",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 2,
+      "name": "Fractional churn rate: 10 of 30 -> 33.33%",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 3,
+      "name": "Large values are printed without exponent",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 4,
+      "name": "Boundary: active_users_start = 10",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 5,
+      "name": "Boundary: churned_users = active - 1",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 6,
+      "name": "Boundary: churned_users = 0 gives zeros",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 7,
+      "name": "Boundary: arpu and winback = 0.01",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 8,
+      "name": "Invalid: active_users_start = 9",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 9,
+      "name": "Invalid: churned_users = active_users_start",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 10,
+      "name": "Invalid: churned_users < 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 11,
+      "name": "Invalid: arpu = 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 12,
+      "name": "Invalid: arpu < 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 13,
+      "name": "Invalid: winback_cost_per_user = 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 14,
+      "name": "Invalid: winback_cost_per_user < 0",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 15,
+      "name": "Incomplete: missing arpu",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 16,
+      "name": "Incomplete: empty body and empty object",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 17,
+      "name": "Wrong type: string instead of number, fractional int",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 18,
+      "name": "Numbers: exponent 1e2 accepted, 1e999 rejected",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 19,
+      "name": "Strict JSON: unknown field rejected",
+      "status": "PASSED"
+    },
+    {
+      "tc_id": 20,
+      "name": "Strict JSON: duplicate key and trailing junk rejected",
+      "status": "PASSED"
+    }
+  ]
+}

@@ -30,3 +30,10 @@ else()
     find_package(SQLite3 REQUIRED)
     target_link_libraries(rest_server PRIVATE SQLite3::SQLite3)
 endif()
+
+# Автотесты варианта 5 (без сервера): ctest --test-dir build
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(variant_tests tests/variant_tests.cpp)
+    add_test(NAME variant_5 COMMAND variant_tests)
+endif()

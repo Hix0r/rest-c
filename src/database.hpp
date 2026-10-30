@@ -92,8 +92,12 @@ inline std::vector<std::string> db_row(const std::string& sql,
 // ---------------------------------------------------------------------------
 // Запись в системный лог.
 // ---------------------------------------------------------------------------
+inline std::string now_iso();   // определена ниже
+
 inline void write_log(const std::string& status, const std::string& msg) {
-    db_run("INSERT INTO logs (status,message) VALUES (?,?);", {status, msg});
+    // datetime раньше не записывался -> в /admin/stats приходила пустая дата
+    db_run("INSERT INTO logs (datetime,status,message) VALUES (?,?,?);",
+           {now_iso(), status, msg});
 }
 
 // ---------------------------------------------------------------------------

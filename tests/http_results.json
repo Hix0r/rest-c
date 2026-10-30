@@ -1,0 +1,528 @@
+{
+  "passed": 87,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "GET /health",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/counters",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/history",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/profile",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/refresh",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/profile",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/refresh",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/profile",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/refresh",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/login",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/login",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/works/calc-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Boundary: active=10, churned=0",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Boundary: churned=active-1, arpu=0.01",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Invalid active_users_start=9",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid active_users_start=10.5",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid active_users_start=-5",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid churned_users=-1",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid churned_users=5000",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid churned_users=6000",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid churned_users=1.5",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid arpu=0",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid arpu=-1",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid winback_cost_per_user=0",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid winback_cost_per_user=-3",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid arpu=30",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: ",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {}",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: []",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: null",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\":100,}",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\": 5000, \"churned_users\":",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\": 5000, \"churned_users\":",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\": 5000, \"churned_users\":",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\": 5000, \"churned_users\":",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Invalid JSON: {\"active_users_start\": 5000, \"churned_users\":",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Missing active_users_start",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Missing churned_users",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Missing arpu",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Missing winback_cost_per_user",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/works/calc-individual",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/works/calc-individual",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/works/calc-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/works/history-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/works/history-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/works/history-individual",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/works/calc",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/works/history",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/users",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/users",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/users",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/stats",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/stats",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/stats",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests-individual",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests-individual",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/run-tests-individual",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/admin/stats",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/register",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/register",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/register",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "PUT /api/v1.1/auth/users/password",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "DELETE /api/v1.1/auth/users",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "OPTIONS /api/v1.1/works/calc-individual",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "GET /no-such-route",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "POST /api/v1.1/auth/logout",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GET /api/v1.1/auth/profile",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    }
+  ]
+}

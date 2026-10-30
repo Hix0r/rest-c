@@ -153,7 +153,8 @@ namespace Auth {
         // ─── 5. Список пользователей (admin/owner) ──────────────────────────
         svr.Get("/api/v1.1/auth/users", [](const Request& req, Response& res) {
             string role, name;
-            if (!auth(req, role, name) || !admin(role)) { res.status = 403; return; }
+            if (!auth(req, role, name)) { res.status = 401; return; }
+            if (!admin(role))           { res.status = 403; return; }
 
             JArr arr;
             for (auto& r : db_all("SELECT id,username,role FROM users;")) {
@@ -176,7 +177,19 @@ namespace Auth {
             string np = jget(req.body, "new_password");
 
             JObj o;
+            // Роль целевого пользователя нужна для проверки прав admin.
+            string target_role;
+            if (target != name) {
+                auto tr = db_row("SELECT role FROM users WHERE username=?;", {target});
+                if (!tr.empty()) target_role = tr[0];
+            }
+
             if (target != name && !admin(role)) {
+                res.status = 403; o.str("error", "Forbidden");
+            } else if (target != name && target_role.empty()) {
+                res.status = 404; o.str("error", "User not found");
+            } else if (target != name && role == "admin" && target_role != "user") {
+                // admin меняет пароль только себе и группе user; owner — всем.
                 res.status = 403; o.str("error", "Forbidden");
             } else if (np.size() < 4) {
                 res.status = 400; o.str("error", "Password too short");
@@ -191,10 +204,10 @@ namespace Auth {
         });
 
         // ─── 7. Удаление пользователя (admin/owner) ─────────────────────────
-                // ─── 7. Удаление пользователя (admin/owner) ─────────────────────────
         svr.Delete("/api/v1.1/auth/users", [](const Request& req, Response& res) {
             string role, name;
-            if (!auth(req, role, name) || !admin(role)) { res.status = 403; return; }
+            if (!auth(req, role, name)) { res.status = 401; return; }
+            if (!admin(role))           { res.status = 403; return; }
 
             string target = jget(req.body, "username");
 
@@ -209,7 +222,14 @@ namespace Auth {
                 res.status = 404;
                 o.str("error", "User not found");
             }
+            // admin удаляет только группу user; owner — любого (кроме owner1).
+            else if (role == "admin" &&
+                     db_row("SELECT role FROM users WHERE username=?;", {target})[0] != "user") {
+                res.status = 403;
+                o.str("error", "Forbidden");
+            }
             else if (db_run("DELETE FROM users WHERE username=?;", {target})) {
+                db_run("DELETE FROM sessions WHERE user_id NOT IN (SELECT id FROM users);");
                 write_log("SUCCESS", "User deleted: " + target);
                 o.str("status", "User deleted");
             }

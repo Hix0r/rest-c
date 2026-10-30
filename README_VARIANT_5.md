@@ -24,8 +24,8 @@ ctest --test-dir build --output-on-failure
 ```
 
 Сервер слушает порт 8080 и создаёт `data/rest.db` относительно текущей папки.
-Для веб-коллекции: откройте `frontend/index.html` в браузере (или `python -m http.server 8093`
-и http://localhost:8093/frontend/index.html).
+Веб-коллекция раздаётся самим сервером: откройте http://localhost:8080/ (сервер нужно запускать из корня
+проекта, где лежит папка `frontend`). Файл `frontend/index.html` можно открыть и напрямую в браузере.
 
 ## Контракт
 

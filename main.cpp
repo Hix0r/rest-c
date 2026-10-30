@@ -77,6 +77,11 @@ int main() {
         res.set_content(o.str(), "application/json");
     });
 
+    // ---- 8.1. Раздача фронтенда: http://localhost:8080/ ----
+    if (!svr.set_mount_point("/", "./frontend")) {
+        std::cerr << "[WARN] ./frontend not found: web UI is not served" << std::endl;
+    }
+
     // ---- 9. Роуты ----
     Auth::init_routes(svr);
     Public::init_routes(svr);
